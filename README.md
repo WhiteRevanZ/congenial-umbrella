@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Радиотехника ГУАП - Студенческий проект</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%232c3e50"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%233498db" stroke-width="1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 100px;
+            margin-top: 70px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .about {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .portfolio {
+            background-color: var(--light-color);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .portfolio-img {
+            height: 200px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-img img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-info {
+            padding: 20px;
+        }
+        
+        .gallery {
+            background-color: white;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Стили для раздела статей */
+        .articles {
+            background-color: var(--light-color);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .article-image {
+            height: 200px;
+            background-color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .article-content {
+            padding: 25px;
+        }
+
+        .article-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+        
+        .contact {
+            background-color: var(--light-color);
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .error {
+            color: var(--accent-color);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .component-svg {
+            width: 80%;
+            height: 80%;
+        }
+        
+        @media (max-width: 992px) {
+            .about-content, .contact-container {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: left 0.3s ease;
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .portfolio-grid, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container header-container">
+            <a href="#home" class="logo">ГУАП<span>Радиотехника</span></a>
+            <button class="mobile-menu-btn">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#portfolio">Проекты</a></li>
+                    <li><a href="#gallery">Компоненты</a></li>
+                    <li><a href="#articles">Статьи</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главный баннер -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Студент ГУАП по радиотехнике</h1>
+            <p>Изучение и проектирование электронных устройств, работа с микроконтроллерами и радиокомпонентами. Практические проекты и лабораторные работы.</p>
+            <a href="#articles" class="btn">Технические статьи</a>
+        </div>
+    </section>
+
+    <!-- Обо мне -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Обо мне</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Я - студент ГУАП, обучающийся по специальности "Радиотехника". Увлекаюсь электроникой и программированием микроконтроллеров с школьных лет.</p>
+                    <p>В рамках учебной программы изучаю схемотехнику, цифровую обработку сигналов, основы радиопередающих устройств и антенно-фидерные системы.</p>
+                    <p>Практикую разработку устройств на базе микроконтроллеров STM32, работаю с различными датчиками и исполнительными механизмами. Особый интерес представляют проекты в области IoT и автоматизации.</p>
+                    <p>В свободное время занимаюсь пайкой, сборкой электронных устройств и изучением новых технологий в области радиотехники и электроники.</p>
+                </div>
+                <div class="about-image">
+                    <!-- Схематическое изображение микроконтроллера -->
+                    <svg class="component-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="20" width="160" height="160" rx="10" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                        <rect x="40" y="40" width="120" height="120" fill="#34495e" stroke="#3498db" stroke-width="1"/>
+                        <!-- Контакты микроконтроллера -->
+                        <rect x="10" y="40" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="10" y="60" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="10" y="80" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="10" y="100" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="10" y="120" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="10" y="140" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="10" y="160" width="10" height="10" fill="#e74c3c"/>
+                        
+                        <rect x="180" y="40" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="180" y="60" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="180" y="80" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="180" y="100" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="180" y="120" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="180" y="140" width="10" height="10" fill="#e74c3c"/>
+                        <rect x="180" y="160" width="10" height="10" fill="#e74c3c"/>
+                        
+                        <!-- Внутренние элементы -->
+                        <circle cx="100" cy="80" r="15" fill="#3498db"/>
+                        <rect x="80" y="110" width="40" height="20" fill="#e74c3c" rx="5"/>
+                        <path d="M70 60 L130 60 L130 70 L120 70 L120 90 L110 90 L110 70 L90 70 L90 90 L80 90 L80 70 L70 70 Z" fill="#f1c40f"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Портфолио -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>Учебные проекты</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-img">
+                        <!-- Изображение конденсатора -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="50" y="70" width="100" height="60" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                            <line x1="30" y1="80" x2="50" y2="80" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="30" y1="120" x2="50" y2="120" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="150" y1="80" x2="170" y2="80" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="150" y1="120" x2="170" y2="120" stroke="#e74c3c" stroke-width="4"/>
+                            <text x="100" y="140" text-anchor="middle" fill="#3498db" font-family="Arial" font-size="14">Конденсатор</text>
+                        </svg>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Исследование емкостных элементов</h3>
+                        <p>Лабораторная работа по изучению характеристик конденсаторов в цепях постоянного и переменного тока.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-img">
+                        <!-- Изображение транзистора -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="40" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                            <line x1="100" y1="60" x2="100" y2="30" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="60" y1="100" x2="30" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="140" y1="100" x2="170" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="85" y1="115" x2="85" y2="140" stroke="#f1c40f" stroke-width="4"/>
+                            <line x1="115" y1="115" x2="115" y2="140" stroke="#f1c40f" stroke-width="4"/>
+                            <text x="100" y="170" text-anchor="middle" fill="#3498db" font-family="Arial" font-size="14">Транзистор</text>
+                        </svg>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Усилительный каскад на биполярном транзисторе</h3>
+                        <p>Расчет и сборка усилительного каскада с общим эмиттером, исследование рабочих характеристик.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-img">
+                        <!-- Изображение диода -->
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M70 80 L130 80 L150 100 L130 120 L70 120 L50 100 Z" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                            <line x1="30" y1="100" x2="50" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="150" y1="100" x2="170" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="90" y1="80" x2="90" y2="120" stroke="#f1c40f" stroke-width="2"/>
+                            <polygon points="110,90 110,110 120,100" fill="#e74c3c"/>
+                            <text x="100" y="150" text-anchor="middle" fill="#3498db" font-family="Arial" font-size="14">Диод</text>
+                        </svg>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Выпрямительные устройства</h3>
+                        <p>Проектирование и анализ однофазных и трехфазных выпрямителей на полупроводниковых диодах.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2>Радиокомпоненты</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <!-- Резистор -->
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="40" y="90" width="120" height="20" fill="#2c3e50"/>
+                        <rect x="70" y="70" width="60" height="50" fill="#e74c3c"/>
+                        <line x1="30" y1="100" x2="40" y2="100" stroke="#3498db" stroke-width="4"/>
+                        <line x1="160" y1="100" x2="170" y2="100" stroke="#3498db" stroke-width="4"/>
+                        <text x="100" y="130" text-anchor="middle" fill="#3498db" font-family="Arial" font-size="12">Резистор</text>
+                    </svg>
+                </div>
+                <div class="gallery-item">
+                    <!-- Катушка индуктивности -->
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 100 Q65 70 80 100 Q95 130 110 100 Q125 70 140 100 Q155 130 170 100" stroke="#3498db" stroke-width="4" fill="none"/>
+                        <line x1="30" y1="100" x2="50" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                        <line x1="170" y1="100" x2="190" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                        <text x="110" y="150" text-anchor="middle" fill="#3498db" font-family="Arial" font-size="12">Катушка</text>
+                    </svg>
+                </div>
+                <div class="gallery-item">
+                    <!-- Микросхема -->
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="100" height="100" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                        <circle cx="70" cy="70" r="5" fill="#3498db"/>
+                        <circle cx="90" cy="70" r="5" fill="#3498db"/>
+                        <circle cx="110" cy="70" r="5" fill="#3498db"/>
+                        <circle cx="130" cy="70" r="5" fill="#3498db"/>
+                        <circle cx="70" cy="130" r="5" fill="#3498db"/>
+                        <circle cx="90" cy="130" r="5" fill="#3498db"/>
+                        <circle cx="110" cy="130" r="5" fill="#3498db"/>
+                        <circle cx="130" cy="130" r="5" fill="#3498db"/>
+                        <text x="100" y="170" text-anchor="middle" fill="#3498db" font-family="Arial" font-size="12">Микросхема</text>
+                    </svg>
+                </div>
+                <div class="gallery-item">
+                    <!-- Кварцевый резонатор -->
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="60" y="70" width="80" height="60" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                        <line x1="40" y1="85" x2="60" y2="85" stroke="#e74c3c" stroke-width="4"/>
+                        <line x1="40" y1="115" x2="60" y2="115" stroke="#e74c3c" stroke-width="4"/>
+                        <line x1="140" y1="85" x2="160" y2="85" stroke="#e74c3c" stroke-width="4"/>
+                        <line x1="140" y1="115" x2="160" y2="115" stroke="#e74c3c" stroke-width="4"/>
+                        <rect x="75" y="80" width="50" height="40" fill="#34495e"/>
+                        <text x="100" y="160" text-anchor="middle" fill="#3498db" font-family="Arial" font-size="10">Кварц</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Статьи -->
+    <section id="articles" class="articles">
+        <div class="container">
+            <h2>Технические статьи</h2>
+            <div class="articles-grid">
+                <div class="article-card">
+                    <div class="article-image">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="20" width="160" height="160" rx="10" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                            <rect x="40" y="40" width="120" height="120" fill="#34495e"/>
+                            <circle cx="100" cy="80" r="15" fill="#3498db"/>
+                            <rect x="80" y="110" width="40" height="20" fill="#e74c3c" rx="5"/>
+                        </svg>
+                    </div>
+                    <div class="article-content">
+                        <h3>Введение в STM32: архитектура и особенности</h3>
+                        <div class="article-meta">Опубликовано: 11.11.2025 | Микроконтроллеры</div>
+                        <p>STM32 - семейство 32-битных микроконтроллеров компании STMicroelectronics на базе ядер ARM Cortex-M. Отличаются высокой производительностью, богатой периферией и низким энергопотреблением...</p>
+                        <a href="#" class="read-more">Читать далее →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M70 80 L130 80 L150 100 L130 120 L70 120 L50 100 Z" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                            <line x1="30" y1="100" x2="50" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="150" y1="100" x2="170" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                            <polygon points="110,90 110,110 120,100" fill="#e74c3c"/>
+                        </svg>
+                    </div>
+                    <div class="article-content">
+                        <h3>Полупроводниковые диоды: принцип работы и применение</h3>
+                        <div class="article-meta">Опубликовано: 11.11.2025 | Полупроводники</div>
+                        <p>Диод - полупроводниковый прибор с одним p-n переходом, обладающий односторонней проводимостью. Используется для выпрямления переменного тока, детектирования сигналов, стабилизации напряжения...</p>
+                        <a href="#" class="read-more">Читать далее →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="40" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                            <line x1="100" y1="60" x2="100" y2="30" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="60" y1="100" x2="30" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="140" y1="100" x2="170" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <div class="article-content">
+                        <h3>Биполярные транзисторы: схемы включения и характеристики</h3>
+                        <div class="article-meta">Опубликовано: 11.11.2025 | Транзисторы</div>
+                        <p>Биполярные транзисторы - активные полупроводниковые приборы с тремя выводами, способные усиливать мощность сигнала. Различают схемы с общим эмиттером, общей базой и общим коллектором...</p>
+                        <a href="#" class="read-more">Читать далее →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="50" y="70" width="100" height="60" fill="#2c3e50" stroke="#3498db" stroke-width="2"/>
+                            <line x1="30" y1="80" x2="50" y2="80" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="30" y1="120" x2="50" y2="120" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="150" y1="80" x2="170" y2="80" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="150" y1="120" x2="170" y2="120" stroke="#e74c3c" stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <div class="article-content">
+                        <h3>Конденсаторы в электронных схемах: типы и применение</h3>
+                        <div class="article-meta">Опубликовано: 11.11.2025 | Пассивные компоненты</div>
+                        <p>Конденсаторы - пассивные компоненты, способные накапливать и отдавать электрический заряд. Используются для фильтрации, разделения цепей по постоянному току, создания временных задержек...</p>
+                        <a href="#" class="read-more">Читать далее →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 100 Q65 70 80 100 Q95 130 110 100 Q125 70 140 100 Q155 130 170 100" stroke="#3498db" stroke-width="4" fill="none"/>
+                            <line x1="30" y1="100" x2="50" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                            <line x1="170" y1="100" x2="190" y2="100" stroke="#e74c3c" stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <div class="article-content">
+                        <h3>Катушки индуктивности и их роль в фильтрах</h3>
+                        <div class="article-meta">Опубликовано: 11.11.2025 | Пассивные компоненты</div>
+                        <p>Катушки индуктивности создают магнитное поле при протекании тока и противодействуют его изменению. Широко применяются в колебательных контурах, фильтрах, трансформаторах и дросселях...</p>
+                        <a href="#" class="read-more">Читать далее →</a>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="40" y="90" width="120" height="20" fill="#2c3e50"/>
+                            <rect x="70" y="70" width="60" height="50" fill="#e74c3c"/>
+                            <line x1="30" y1="100" x2="40" y2="100" stroke="#3498db" stroke-width="4"/>
+                            <line x1="160" y1="100" x2="170" y2="100" stroke="#3498db" stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <div class="article-content">
+                        <h3>Резисторы: маркировка и расчет параметров</h3>
+                        <div class="article-meta">Опубликовано: 11.11.2025 | Пассивные компоненты</div>
+                        <p>Резисторы - основные пассивные элементы электронных схем, ограничивающие ток и создающие падения напряжения. Различают постоянные, переменные, подстроечные и специальные резисторы...</p>
+                        <a href="#" class="read-more">Читать далее →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Свяжитесь со мной</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h3>Email</h3>
+                            <p><a href="mailto:student.guap@example.com">student.guap@example.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <h3>Телефон</h3>
+                            <p><a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h3>Адрес</h3>
+                            <p>пгт. Мурино, Ленинградская область</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🎓</div>
+                        <div>
+                            <h3>Учебное заведение</h3>
+                            <p>ГУАП - Санкт-Петербургский государственный университет аэрокосмического приборостроения</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="feedback-form">
+                        <div class="form-group">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                            <div class="error" id="email-error">Введите корректный email адрес</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">ГУАП<span>Радиотехника</span></div>
+                    <p>Студент университета аэрокосмического приборостроения</p>
+                </div>
+                <div>
+                    <h3>Социальные сети</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">VK</a>
+                        <a href="#" class="social-link">TG</a>
+                        <a href="#" class="social-link">GH</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Студент ГУАП. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике на пункт
+        document.querySelectorAll('nav ul li a').forEach(function(item) {
+            item.addEventListener('click', function() {
+                document.querySelector('nav ul').classList.remove('active');
+            });
+        });
+        
+        // Валидация формы
+        document.getElementById('feedback-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('email-error');
+            
+            // Проверка email
+            if (!email.includes('@')) {
+                emailError.style.display = 'block';
+                return;
+            } else {
+                emailError.style.display = 'none';
+            }
+            
+            // Если все проверки пройдены
+            alert('Сообщение отправлено!');
+            this.reset();
+        });
+        
+        // Скрытие ошибки при вводе
+        document.getElementById('email').addEventListener('input', function() {
+            document.getElementById('email-error').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
